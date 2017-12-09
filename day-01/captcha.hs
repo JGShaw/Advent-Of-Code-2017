@@ -3,7 +3,7 @@ module Captcha where
 import qualified Data.Char as Char
 
 solve :: String -> Int
-solve input = solve' $ take ((length input) + 1) $ cycle input
+solve input = solve' $ take (length input + 1) $ cycle input
 
 solve' :: String -> Int
 solve' (h1 : h2 : tl)
