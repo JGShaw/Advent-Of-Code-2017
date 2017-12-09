@@ -1,16 +1,18 @@
 module Stream where
 
-score :: String -> Int
-score input = scoreGroup 1 input
+score :: String -> (Int, Int)
+score input = scoreGroup 0 0 1 input
 
-scoreGroup :: Int -> String -> Int
-scoreGroup _ [] = 0
-scoreGroup score ('{' : tail) = score + (scoreGroup (score + 1) tail)
-scoreGroup score ('}' : tail) = scoreGroup (score - 1) tail
-scoreGroup score ('<' : tail) = scoreGroup score (removeGarbage tail)
-scoreGroup score (_ : tail) = scoreGroup score tail
+scoreGroup :: Int -> Int -> Int -> String -> (Int, Int)
+scoreGroup tScore tGarbage  _ [] = (tScore, tGarbage)
+scoreGroup tScore tGarbage score ('{' : tail) = scoreGroup (tScore + score) tGarbage  (score + 1) tail
+scoreGroup tScore tGarbage score ('}' : tail) = scoreGroup tScore tGarbage (score - 1) tail
+scoreGroup tScore tGarbage score ('<' : tail) = scoreGroup tScore tGarbage score (removeGarbage tail)
+scoreGroup tScore tGarbage score (_ : tail) = scoreGroup tScore tGarbage score tail
 
 removeGarbage :: String -> String
 removeGarbage ('>' : tail) = tail
 removeGarbage ('!' : _ : tail) = removeGarbage tail
 removeGarbage (_ : tail) = removeGarbage tail
+
+
