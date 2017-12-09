@@ -2,11 +2,14 @@ module Captcha where
 
 import qualified Data.Char as Char
 
-solve :: String -> Int
-solve input = solve' $ take (length input + 1) $ cycle input
+solveP1 :: String -> Int
+solveP1 input = solve' input (rotate 1 input)
 
-solve' :: String -> Int
-solve' (h1 : h2 : tl)
-  | h1 == h2 = Char.digitToInt h1 + (solve' (h2 : tl))
-  | otherwise = solve' (h2 : tl)
-solve' (tl : []) = 0
+solveP2 :: String -> Int
+solveP2 input = solve' input (rotate ((length input) `div` 2) input)
+
+solve' :: String -> String -> Int
+solve' in1 in2 = sum $ map (\(x1, x2) -> if x1 == x2 then (Char.digitToInt x1) else 0) $ zip in1 in2
+
+rotate :: Int -> String -> String
+rotate n s = take (length s)  (drop n (cycle s))
