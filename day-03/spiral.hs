@@ -23,3 +23,6 @@ minusY n = equation 9 6 n
 
 equation :: Int -> Int -> Int -> Int
 equation x y n = (4 * (n^2)) - (x * n) + y
+
+firstValueLargerThan :: Int -> Int
+firstValueLargerThan i = i
