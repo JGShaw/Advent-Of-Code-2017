@@ -4,8 +4,8 @@ countMoves :: Int -> Int
 countMoves i = ring + closestAxis - 1
   where
     ring = (getRing i) + 1
-    closestAxis = minimum [abs (i - (plusY ring)), abs (i - (minusY ring)), abs (i - (plusX ring)), abs (i - (minusX ring))]
-    
+    closestAxis = minimum [abs (i - (plusY ring)), abs (i - (minusY ring)), abs (i - (plusX ring)), abs (i - (minusX ring))]   
+
 getRing :: Int -> Int
 getRing num = y `div` 2
   where
