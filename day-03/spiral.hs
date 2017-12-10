@@ -1,12 +1,11 @@
 module Spiral where
 
 countMoves :: Int -> Int
-countMoves i = x + y
+countMoves i = ring + closestAxis - 1
   where
     ring = (getRing i) + 1
-    x = minimum [abs (i - (plusY ring)), abs (i - (minusY ring))]
-    y = minimum [abs (i - (plusX ring)), abs (i - (minusX ring))]
-
+    closestAxis = minimum [abs (i - (plusY ring)), abs (i - (minusY ring)), abs (i - (plusX ring)), abs (i - (minusX ring))]
+    
 getRing :: Int -> Int
 getRing num = y `div` 2
   where
@@ -20,7 +19,7 @@ minusX n = equation  7 4 n
 plusY :: Int -> Int
 plusY n = equation 5 2 n
 minusY :: Int -> Int
-minusY n = equation 9 4 n
+minusY n = equation 9 6 n
 
 equation :: Int -> Int -> Int -> Int
 equation x y n = (4 * (n^2)) - (x * n) + y
