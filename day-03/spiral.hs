@@ -25,4 +25,7 @@ equation :: Int -> Int -> Int -> Int
 equation x y n = (4 * (n^2)) - (x * n) + y
 
 firstValueLargerThan :: Int -> Int
-firstValueLargerThan i = i
+firstValueLargerThan i = head $ filter (\x -> x > i) fillMemory
+
+fillMemory :: [Int]
+fillMemory = [1..]
