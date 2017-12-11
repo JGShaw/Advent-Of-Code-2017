@@ -2,14 +2,14 @@ module Passphrase where
 
 import qualified Data.Set as Set
 
-check :: String -> Bool
-check input = (length splitWords) == (length $ Set.fromList splitWords)
+checkDuplicates :: String -> Bool
+checkDuplicates input = (length splitWords) == (length $ Set.fromList splitWords)
   where
     splitWords = words input
 
-checkLines :: String -> Int
-checkLines input = length $ filter check $ lines input 
+checkLines :: (String -> Bool) -> String -> Int
+checkLines checker input = length $ filter checker $ lines input 
 
-readInput input = do
+readInput checker input = do
   file <- readFile input
-  print $ checkLines file
+  print $ checkLines checker file
