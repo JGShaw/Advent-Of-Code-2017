@@ -40,6 +40,10 @@ class TowerBuilder
     end
   end
 
+  def weight_needed_to_balance root
+    0
+  end
+  
   def build_tree(programs, mappings)
     programs.each_value do |program|
       if mappings[program.name] then
