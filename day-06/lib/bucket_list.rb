@@ -1,4 +1,5 @@
 require 'set'
+require_relative 'bucket.rb'
 
 class BucketList
 
@@ -41,3 +42,11 @@ class BucketList
   end
 
 end
+
+bucketValues = []
+File.open(ARGV[0]).each do |bucket|
+  bucketValues.push(bucket.to_i)
+end
+buckets = BucketList.new(bucketValues)
+puts buckets.count_moves_to_cycle
+
