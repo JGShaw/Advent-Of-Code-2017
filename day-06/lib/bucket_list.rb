@@ -32,21 +32,33 @@ class BucketList
     return output
   end
 
-  def count_moves_to_cycle
-    states = Set.new
+  def find_cycle
+    states = []
     until states.member? stringify do
-      states.add(stringify)
+      states.push(stringify)
       redistribute
     end
-    return states.length
+    return states
+  end
+
+  def count_moves_to_cycle
+    find_cycle.length
+  end
+
+  def count_cycle_size
+    states = find_cycle
+    return states.length - states.index(stringify)
   end
 
 end
 
-bucketValues = []
-File.open(ARGV[0]).each do |bucket|
-  bucketValues.push(bucket.to_i)
+if __FILE__ == $0 then
+  bucketValues = []
+  File.open(ARGV[0]).each do |bucket|
+    bucketValues.push(bucket.to_i)
+  end
+  buckets = BucketList.new(bucketValues)
+  puts "Moves until a cycle: #{buckets.count_moves_to_cycle}"
+  puts "Cycle size: #{buckets.count_cycle_size}"
 end
-buckets = BucketList.new(bucketValues)
-puts buckets.count_moves_to_cycle
 

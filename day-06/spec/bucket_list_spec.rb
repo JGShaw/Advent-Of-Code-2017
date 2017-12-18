@@ -25,4 +25,9 @@ describe BucketList do
   it "Can count the moves to a cycle" do
     expect(subject.count_moves_to_cycle).to eq 5
   end
+
+  it "Can count the cycle size" do
+    expect(subject.count_cycle_size).to eq 4
+  end
+
 end
