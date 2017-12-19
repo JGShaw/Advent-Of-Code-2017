@@ -14,4 +14,13 @@ class Program
     @subprograms.push(subprogram)
   end
 
+  def holding depth
+    sum = @weight
+    @subprograms.each do |subprogram|
+      sum += subprogram.holding (depth + 1)
+    end
+    puts "\t" * depth +  "#{sum.to_s} (#{@weight.to_s})"
+    return sum
+  end
+
 end

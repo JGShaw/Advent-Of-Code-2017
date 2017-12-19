@@ -22,7 +22,7 @@ describe TowerBuilder do
   end
 
   it "Can take a series of lines and find the correct root" do
-    expect(subject.find_root @lines).to eq "tknk"
+    expect(subject.find_root(@lines).name).to eq "tknk"
   end
 
   it "Can extract the program name" do

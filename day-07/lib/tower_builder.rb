@@ -20,7 +20,7 @@ class TowerBuilder
     while program.parent do
       program = program.parent
     end
-    return program.name
+    return program
   end
 
   def extract_name line
@@ -41,7 +41,15 @@ class TowerBuilder
   end
 
   def weight_needed_to_balance root
-    0
+    weight = nil 
+    root.subprograms.each do |child|
+      holding = child.holding 1
+      weight = holding unless weight
+      unless weight == holding
+        return (weight - holding).abs
+      end
+    end
+    return 0
   end
   
   def build_tree(programs, mappings)
@@ -57,5 +65,7 @@ end
 
 if __FILE__ == $0 then
   towerBuilder = TowerBuilder.new
-  puts towerBuilder.find_root(File.open(ARGV[0]))
+  root = towerBuilder.find_root(File.open(ARGV[0]))
+  puts "Name of root #{root.name}"
+  puts "Needed to balance: #{towerBuilder.weight_needed_to_balance root}"
 end
