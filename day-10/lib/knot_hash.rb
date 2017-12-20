@@ -4,7 +4,7 @@ class KnotHash
     @loop = (0..size - 1).to_a
   end
 
-  def hash(lengths)
+  def simple_hash(lengths)
     skipSize = 0
     rotated = 0
 
@@ -23,6 +23,6 @@ end
 if __FILE__ == $0 then
   knotHash = KnotHash.new 256
   lengths = File.open(ARGV[0]).first.split(",").map(&:to_i)
-  hashed = knotHash.hash(lengths)
-  puts "Product of first two: #{hashed[0] *  hashed[1]}"
+  simple_hashed = knotHash.simple_hash(lengths)
+  puts "Product of first two: #{simple_hashed[0] *  simple_hashed[1]}"
 end
