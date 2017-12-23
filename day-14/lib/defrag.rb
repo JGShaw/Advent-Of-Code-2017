@@ -17,20 +17,11 @@ class Defrag
     hashes.length.times do |hashNum|
       hashes[hashNum].length.times do |charNum|
         if hashes[hashNum][charNum] == '1'
-          count += 1
           zero_group(hashes, hashNum, charNum)
+          count += 1
         end
       end
     end
-
-    #hashes.each_with_index do |hash,hashNum|
-    #  hash.each_char.with_index do |char,charNum|
-    #    if char == '1' then
-    #      zero_group(hashes, hashNum, charNum)
-    #      count += 1
-    #    end
-    #  end
-    #end
     return count
   end
 
