@@ -2,31 +2,28 @@ require_relative "../../day-10/lib/knot_hash"
 
 class Defrag
   def count_used(input)
-    hashes = generate_hashes(128, input)
+    hashes = generate_binary_hashes(128, input)
     used = 0
     hashes.each do |hash|
-      used += count_used_in_hash(hash)
+      used += hash.count("1")
     end
     return used
   end
 
+  def count_groups(input)
+    0
+  end
+
   private
 
-  def generate_hashes(count, input)
+  def generate_binary_hashes(count, input)
     hashes = []
     count.times do |i|
       hash = KnotHash.new(256)
-      hashes << hash.complex_hash(input + "-#{i}")
+      complex_hash = hash.complex_hash(input + "-#{i}") 
+      hashes << complex_hash.to_i(16).to_s(2).rjust(128, "0")
     end
     return hashes
-  end
-
-  def count_used_in_hash(hash)
-    count = 0
-    hash.each_char do |digit|
-      count += digit.to_i(16).to_s(2).count("1")
-    end
-    return count
   end
 end
 
