@@ -18,19 +18,4 @@ describe Dance do
       expect(subject.dance_lots(2, @input, ["s1", "x3/4", "pe/b"])).to eq ["c", "e", "a", "d", "b"]
     end
   end
-
-  context "Executing dance moves" do
-    it "Can execute a spin move" do
-      expect(subject.spin(@input, 3)).to eq ["c", "d", "e", "a", "b"]
-    end
-
-    it "Can execute an exchange move" do
-      expect(subject.exchange(@input, 1, 3)).to eq ["a", "d", "c", "b", "e"]
-    end
-
-    it "Can execute a partner move" do
-      expect(subject.partner(@input, "a", "d")).to eq ["d", "b", "c", "a", "e"]
-    end
-  end
-
 end
