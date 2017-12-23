@@ -8,25 +8,18 @@ class Firewall
 
   def delay_to_get_through(textLayers)
     delay = 0
-    pipeline = []
+    pipeline = [0]
     layers = create_layers(textLayers)
-    
+
     while true do
-      pipeline << 0
-  
       layers.each_with_index do |layer,index|
-        if delay - index >= 0 then 
-          pipeline[delay - index] += 1 if layer.scanner_catches?
-        end
+        pipeline[delay - index] += 1 if delay - index >= 0 && layer.scanner_catches?
       end
 
-      if delay - layers.length >= 0 then
-        break if pipeline[delay - layers.length] == 0
-      end
-
+      break if delay - layers.length >= 0 && pipeline[delay - layers.length] == 0
       layers.map(&:tick)
+      pipeline << 0
       delay += 1
-
     end
     return delay - layers.length
   end
