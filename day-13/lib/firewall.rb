@@ -8,16 +8,27 @@ class Firewall
 
   def delay_to_get_through(textLayers)
     delay = 0
+    pipeline = []
+    layers = create_layers(textLayers)
+    
     while true do
-      puts delay
-      layers = create_layers(textLayers)
-      delay.times do
-        layers.map(&:tick)
+      pipeline << 0
+  
+      layers.each_with_index do |layer,index|
+        if delay - index >= 0 then 
+          pipeline[delay - index] += 1 if layer.scanner_catches?
+        end
       end
-      break if find_total_severity(layers) == 0
+
+      if delay - layers.length >= 0 then
+        break if pipeline[delay - layers.length] == 0
+      end
+
+      layers.map(&:tick)
       delay += 1
+
     end
-    return delay
+    return delay - layers.length
   end
 
   private
@@ -44,9 +55,7 @@ class Firewall
   def find_total_severity(layers)
     tripSeverity = 0
     layers.each do |current|
-      if current.scannerPos == 0 then
-        tripSeverity += current.severity
-      end
+      tripSeverity += current.severity if current.scanner_catches?
       layers.map(&:tick)
     end
     return tripSeverity

@@ -39,6 +39,15 @@ describe Layer do
       expect(subject.severity).to eq 6
     end
 
+    it "The scanner catches when no ticks have happened" do
+      expect(subject.scanner_catches?).to eq true
+    end
+
+    it "The scanner does not catch after one tick" do
+      subject.tick
+      expect(subject.scanner_catches?).to eq false
+    end
+    
     it "Can convert the layer to a string" do
       expect(subject.to_s).to eq "L: 2, SP: 0, MD: 2, SEV: 6"
     end
@@ -46,7 +55,11 @@ describe Layer do
 
   context "Creating a layer with no scanner" do
     subject { Layer.new 2 }
-     
+    
+    it "The scanner does not catch" do
+      expect(subject.scanner_catches?).to eq false
+    end
+
     it "The severity is zero" do
       expect(subject.severity).to eq 0
     end
