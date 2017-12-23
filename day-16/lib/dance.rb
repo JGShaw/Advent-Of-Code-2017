@@ -11,7 +11,7 @@ class Dance
     reps.times do |rep|
       puts rep
       moves.each do |move|
-        move.execute(programs)
+        move.execute!(programs)
       end
     end
     return programs
@@ -40,6 +40,7 @@ if __FILE__ == $0 then
   programs = ("a".."p").to_a
   dance = Dance.new
   input = File.open(ARGV[0]).first.strip!.split(",")
-  puts "After dance: #{dance.dance(programs, input).join("")}"
-  puts "After 1 billion dances: #{dance.dance_lots(1000000000, programs, input).join("")}"
+  #puts "After dance: #{dance.dance(programs, input).join("")}"
+  #puts "After 1 billion dances: #{dance.dance_lots(1000000000, programs, input).join("")}"
+  puts "After 100 dances: #{dance.dance_lots(100, programs, input).join("")}"
 end
