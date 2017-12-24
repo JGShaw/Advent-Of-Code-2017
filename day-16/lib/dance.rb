@@ -20,9 +20,8 @@ class Dance
   private
 
   def generate_moves(textMoves)
-    moves = []
-    textMoves.each do |move|
-      moves << case move[0]
+    textMoves.collect do |move|
+      case move[0]
       when "s"
         Spin.new(move)
       when "x"
@@ -31,7 +30,6 @@ class Dance
         Partner.new(move)
       end
     end
-    return moves
   end
 
 end
